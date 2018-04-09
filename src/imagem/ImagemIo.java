@@ -15,7 +15,10 @@ public class ImagemIo {
     }
     
     public Imagem abrirImagem(Component pai) {
-        EscolherArquivo.showOpenDialog(pai);
+        int botaoEscolhido = EscolherArquivo.showOpenDialog(pai);
+        if (botaoEscolhido != JFileChooser.APPROVE_OPTION) {
+            return null;
+        }
         File imagem = EscolherArquivo.getSelectedFile();
         BufferedImage imagemInterna;
         try {
@@ -28,7 +31,10 @@ public class ImagemIo {
     }
     
     public void SalvarImagem(Component pai, BufferedImage imagem) {
-        EscolherArquivo.showSaveDialog(pai);
+        int botaoEscolhido = EscolherArquivo.showSaveDialog(pai);
+        if (botaoEscolhido != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
         File imagemSalvar = EscolherArquivo.getSelectedFile();
         String imagemEndereco = imagemSalvar.getAbsolutePath();
         String formatoImagem = imagemEndereco.substring(imagemEndereco.lastIndexOf(".") + 1);
