@@ -1,6 +1,13 @@
 package gui;
 
+import imagem.*;
+import javax.swing.ImageIcon;
+import java.awt.Image;
+
 public class JanelaPrincipal extends javax.swing.JFrame {
+    Imagem imagemPrincipal;
+    ImageIcon iconeImagem;
+    ImagemIo imagemIo;
 
     /**
      * Creates new form JanelaPrincipal
@@ -18,6 +25,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -29,13 +37,25 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         jMenu1.setText("Arquivo");
 
         jMenuItem1.setText("Abrir");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Salvar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -58,15 +78,53 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int labelWidth = jLabel1.getWidth();
+        int labelHeight = jLabel1.getHeight();
+        imagemIo = new ImagemIo();
+        imagemPrincipal = imagemIo.abrirImagem(this);
+        if (imagemPrincipal == null) {
+            //Falha ao abrir a imagem
+            return;
+        }
+        
+        /*Checa as dimensoes do JLabel para garantir que a imagem seja mostrada
+         *com as dimensoes corretas. O atributo negativo e aquele que e maior
+         *do que a imagem.*/
+        if ((double) labelWidth / labelHeight < 
+                (double) imagemPrincipal.getWidth() / imagemPrincipal.getHeight()) {
+            labelHeight = -labelHeight;
+        } else {
+            labelWidth = -labelWidth;
+        }
+        
+        /*Cria o icone que sera mostrado no JLabel. As dimensoes do icone dependem
+        da imagem e do JLabel, e sao escolhidas para garantir que toda a imagem
+        caiba no JLabel*/
+        iconeImagem = new ImageIcon(imagemPrincipal.getImagemInterna().getScaledInstance(
+                labelWidth, labelHeight, Image.SCALE_SMOOTH));
+        jLabel1.setIcon(iconeImagem);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        imagemIo.SalvarImagem(this, imagemPrincipal.getImagemInterna());
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,6 +162,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
