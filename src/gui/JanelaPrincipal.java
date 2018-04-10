@@ -8,6 +8,28 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     Imagem imagemPrincipal;
     ImageIcon iconeImagem;
     ImagemIo imagemIo;
+    
+    private void atualizarExibicao() {
+        int labelWidth = jLabel1.getWidth();
+        int labelHeight = jLabel1.getHeight();
+        
+        /*Checa as dimensoes do JLabel para garantir que a imagem seja mostrada
+         *com as dimensoes corretas. O atributo negativo e aquele que e maior
+         *do que a imagem.*/
+        if ((double) labelWidth / labelHeight < 
+                (double) imagemPrincipal.getWidth() / imagemPrincipal.getHeight()) {
+            labelHeight = -labelHeight;
+        } else {
+            labelWidth = -labelWidth;
+        }
+        
+        /*Cria o icone que sera mostrado no JLabel. As dimensoes do icone dependem
+        da imagem e do JLabel, e sao escolhidas para garantir que toda a imagem
+        caiba no JLabel*/
+        iconeImagem = new ImageIcon(imagemPrincipal.getImagemInterna().getScaledInstance(
+                labelWidth, labelHeight, Image.SCALE_SMOOTH));
+        jLabel1.setIcon(iconeImagem);
+    }
 
     /**
      * Creates new form JanelaPrincipal
@@ -34,6 +56,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +93,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Filtros");
+
+        jMenuItem3.setText("Negativo");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem3);
+
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -95,36 +127,23 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        int labelWidth = jLabel1.getWidth();
-        int labelHeight = jLabel1.getHeight();
         imagemIo = new ImagemIo();
         imagemPrincipal = imagemIo.abrirImagem(this);
         if (imagemPrincipal == null) {
             //Falha ao abrir a imagem
             return;
         }
-        
-        /*Checa as dimensoes do JLabel para garantir que a imagem seja mostrada
-         *com as dimensoes corretas. O atributo negativo e aquele que e maior
-         *do que a imagem.*/
-        if ((double) labelWidth / labelHeight < 
-                (double) imagemPrincipal.getWidth() / imagemPrincipal.getHeight()) {
-            labelHeight = -labelHeight;
-        } else {
-            labelWidth = -labelWidth;
-        }
-        
-        /*Cria o icone que sera mostrado no JLabel. As dimensoes do icone dependem
-        da imagem e do JLabel, e sao escolhidas para garantir que toda a imagem
-        caiba no JLabel*/
-        iconeImagem = new ImageIcon(imagemPrincipal.getImagemInterna().getScaledInstance(
-                labelWidth, labelHeight, Image.SCALE_SMOOTH));
-        jLabel1.setIcon(iconeImagem);
+        atualizarExibicao();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         imagemIo.SalvarImagem(this, imagemPrincipal.getImagemInterna());
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        imagemPrincipal.getEfeitosCor().getNegativo().aplicarEfeito();
+        atualizarExibicao();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,5 +190,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }

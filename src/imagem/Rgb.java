@@ -26,4 +26,26 @@ public class Rgb {
             blue[i] = coresRgb[i] & 0xff;
         }
     }
+    
+    public int[] getRed() {
+        return this.red;
+    }
+    
+    public int[] getGreen() {
+        return this.green;
+    }
+    
+    public int[] getBlue() {
+        return this.blue;
+    }
+    
+    public void converterParaFormatoInterno(BufferedImage imagemInterna) {
+        int width = imagemInterna.getWidth();
+        int height = imagemInterna.getHeight();
+        int[] coresRgb = new int[width * height];
+        for (int i = 0; i < width * height; i++) {
+            coresRgb[i] = 0xff000000 | (red[i] << 16) | (green[i] << 8) | blue[i];
+        }
+        imagemInterna.setRGB(0, 0, width, height, coresRgb, 0, width);
+    }
 }
