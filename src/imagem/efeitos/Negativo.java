@@ -11,13 +11,13 @@ public class Negativo {
     
     public void aplicarEfeito() {
         imagemPai.comecarAlteracao();
-        reverterCores(imagemPai.getRgb().getRed());
-        reverterCores(imagemPai.getRgb().getGreen());
-        reverterCores(imagemPai.getRgb().getBlue());
+        inverterCores(imagemPai.getRgb().getRed());
+        inverterCores(imagemPai.getRgb().getGreen());
+        inverterCores(imagemPai.getRgb().getBlue());
         imagemPai.terminarAlteracao();
     }
     
-    private void reverterCores(int[] pixels) {
+    private void inverterCores(int[] pixels) {
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = 255 - pixels[i];
         }

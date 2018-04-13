@@ -1,12 +1,9 @@
 package gui;
 
 import imagem.*;
-import javax.swing.ImageIcon;
-import java.awt.Image;
 
 public class JanelaPrincipal extends javax.swing.JFrame {
     Imagem imagemPrincipal;
-    ImageIcon iconeImagem;
     ImagemIo imagemIo;
     
     private void atualizarExibicao() {
@@ -23,12 +20,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             labelWidth = -labelWidth;
         }
         
-        /*Cria o icone que sera mostrado no JLabel. As dimensoes do icone dependem
-        da imagem e do JLabel, e sao escolhidas para garantir que toda a imagem
-        caiba no JLabel*/
-        iconeImagem = new ImageIcon(imagemPrincipal.getImagemInterna().getScaledInstance(
-                labelWidth, labelHeight, Image.SCALE_SMOOTH));
-        jLabel1.setIcon(iconeImagem);
+        imagemPrincipal.atualizarIcone(labelWidth, labelHeight);
+        jLabel1.setIcon(imagemPrincipal.getIcone());
     }
 
     /**
