@@ -1,5 +1,7 @@
 package imagem.efeitos;
 
+import gui.JanelaPrincipal;
+import gui.SliderPretoBranco;
 import imagem.Imagem;
 
 public class PretoBranco {
@@ -13,13 +15,18 @@ public class PretoBranco {
     
     public void aplicarEfeito() {
         imagemPai.comecarAlteracao();
+        JanelaPrincipal auxiliar = new JanelaPrincipal();
+        SliderPretoBranco slide = new SliderPretoBranco(auxiliar, true);
+        slide.setVisible(true);
+        this.setLimiar(slide.getLimiar());
         alterarPretoBranco(imagemPai.getRgb().getRed(),imagemPai.getRgb().getGreen(),imagemPai.getRgb().getBlue());
         imagemPai.terminarAlteracao();
     }
     
     private void alterarPretoBranco(int[] red, int[] green, int[] blue) {
         for (int i = 0; i < red.length; i++) {
-            if ((red[i] & green[i] & blue[i]) <= this.limiar) {
+            int maximo = Math.max(Math.max(red[i], green[i]), blue[i]);
+            if (this.limiar > maximo) {
                 red[i] = 0;
                 green[i] = 0;
                 blue[i] = 0;

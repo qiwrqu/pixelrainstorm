@@ -148,9 +148,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        SliderPretoBranco slide = new SliderPretoBranco(this, true);
-        slide.setVisible(true);
-        imagemPrincipal.getEfeitosCor().getPretoBranco().setLimiar(slide.getLimiar());
         imagemPrincipal.getEfeitosCor().getPretoBranco().aplicarEfeito();
         atualizarExibicao();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
