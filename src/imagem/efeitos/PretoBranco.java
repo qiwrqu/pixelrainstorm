@@ -5,20 +5,24 @@ import gui.SliderPretoBranco;
 import imagem.Imagem;
 
 public class PretoBranco {
-    private Imagem imagemPai;
     private int limiar;
+    private Imagem imagemPai;
     
     public PretoBranco(Imagem imagemPai) {
         this.imagemPai = imagemPai;
         this.limiar = 128;
     }
     
-    public void aplicarEfeito() {
-        imagemPai.comecarAlteracao();
+    private void consultarUsuario() {
         JanelaPrincipal auxiliar = new JanelaPrincipal();
         SliderPretoBranco slide = new SliderPretoBranco(auxiliar, true);
         slide.setVisible(true);
         this.setLimiar(slide.getLimiar());
+    }
+    
+    public void aplicarEfeito() {
+        imagemPai.comecarAlteracao();
+        consultarUsuario();
         alterarPretoBranco(imagemPai.getRgb().getRed(),imagemPai.getRgb().getGreen(),imagemPai.getRgb().getBlue());
         imagemPai.terminarAlteracao();
     }
