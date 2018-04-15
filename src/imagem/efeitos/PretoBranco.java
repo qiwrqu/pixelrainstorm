@@ -17,7 +17,6 @@ public class PretoBranco {
         JanelaPrincipal auxiliar = new JanelaPrincipal();
         SliderPretoBranco slide = new SliderPretoBranco(auxiliar, true);
         slide.setVisible(true);
-        this.setLimiar(slide.getLimiar());
     }
     
     public void aplicarEfeito() {

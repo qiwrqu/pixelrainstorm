@@ -1,7 +1,7 @@
 package gui;
 
 public class SliderPretoBranco extends javax.swing.JDialog {
-    private int limiar;
+    
     /**
      * Creates new form SliderPretoBranco
      */
@@ -12,12 +12,6 @@ public class SliderPretoBranco extends javax.swing.JDialog {
 
     public SliderPretoBranco(SliderPretoBranco slide, boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    public void setLimiar(int limiar) {
-        this.limiar = limiar;
-    }
-    public int getLimiar() {
-        return this.limiar;
     }
     
     /**
@@ -97,7 +91,6 @@ public class SliderPretoBranco extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setLimiar(jSlider1.getValue());      
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
